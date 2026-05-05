@@ -16,22 +16,35 @@ body.app-body {
   border-bottom: 2px solid darkred;
 }
 
+/* LEFT SIDE (logo) */
 .logo {
   font-size: 20px;
   font-weight: bold;
   color: darkred;
 }
 
+/* base nav links */
 .nav-links a {
-  color: white;
-  margin-left: 15px;
   text-decoration: none;
-  padding: 6px 10px;
-  border-radius: 5px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
   transition: 0.2s;
+  color: white;
 }
 
+/* normal hover */
 .nav-links a:hover {
+  background: darkred;
+}
+
+/* button-style links */
+.nav-links a.btn-link {
+  background: #1a1a1a;
+  border: 1px solid darkred;
+}
+
+.nav-links a.btn-link:hover {
   background: darkred;
 }
 
