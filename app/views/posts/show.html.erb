@@ -1,0 +1,21 @@
+<% if @post.image_url.present? %>
+  <img src="<%= @post.image_url %>" style="width:300px;">
+<% end %>
+
+<h2><%= @post.album_name %></h2>
+<h4><%= @post.artist %></h4>
+
+<p><%= @post.content %></p>
+
+<hr>
+
+<h3>Comments 💬</h3>
+
+<%= form_with model: [@post, Comment.new] do |f| %>
+  <%= f.text_area :body %>
+  <%= f.submit "Comment" %>
+<% end %>
+
+<% @post.comments.each do |comment| %>
+  <p><%= comment.user.email %>: <%= comment.body %></p>
+<% end %>

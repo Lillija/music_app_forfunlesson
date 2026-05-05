@@ -1,0 +1,18 @@
+<h1>Music Feed 🎵</h1>
+
+<%= link_to "New Post", new_post_path %>
+
+<% @posts.each do |post| %>
+  <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+
+    <% if post.image_url.present? %>
+      <img src="<%= post.image_url %>" style="width:200px;">
+    <% end %>
+
+    <h3><%= post.album_name %> - <%= post.artist %></h3>
+
+    <p><%= post.content %></p>
+
+    <%= link_to "View", post_path(post) %>
+  </div>
+<% end %>
