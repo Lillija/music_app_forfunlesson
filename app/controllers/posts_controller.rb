@@ -1,40 +1,66 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :react]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @posts = Post.order(created_at: :desc)
+    @posts = Post.includes(:album, :user, :comments).order(created_at: :desc)
   end
 
   def show
-    @post = Post.find(params[:id])
+    @comment = Comment.new
   end
 
   def new
     @post = Post.new
   end
 
-def create
-  album = Album.find_or_initialize_by(name: params[:post][:album_name])
-  album.artist = params[:post][:artist]
-  album.cover_url = params[:post][:image_url]
+  def create
+    album = Album.find_or_create_by(name: params[:post][:album_name]) do |a|
+      a.artist = params[:post][:artist]
+      a.cover_url = params[:post][:image_url]
+    end
 
-  unless album.save
-    render :new and return
+    @post = current_user.posts.new(post_params)
+    @post.album = album
+
+    if @post.save
+      redirect_to @post, notice: "Post created!"
+    else
+      render :new
+    end
   end
 
-  @post = current_user.posts.new(post_params)
-  @post.album = album
+  def edit; end
 
-  if @post.save
-    redirect_to @post
-  else
-    render :new
+  def update
+    if @post.update(post_params)
+      redirect_to @post, notice: "Post updated!"
+    else
+      render :edit
+    end
   end
-end
+
+  def destroy
+    if @post.user == current_user
+      @post.destroy
+      redirect_to posts_path, notice: "Post deleted!"
+    else
+      redirect_to posts_path, alert: "Not allowed."
+    end
+  end
+
+  def react
+    @post.add_reaction(params[:emoji])
+    redirect_back fallback_location: @post
+  end
 
   private
 
-def post_params
-  params.require(:post).permit(:content)
-end
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def post_params
+    params.require(:post).permit(:content)
+  end
 end

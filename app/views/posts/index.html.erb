@@ -1,6 +1,8 @@
-<h1>🎧 Music Feed</h1>
+<h1>🎵 Music Feed</h1>
 
-<%= link_to "New Post", new_post_path, class: "btn" %>
+<% if user_signed_in? %>
+  <%= link_to "New Post", new_post_path, class: "btn" %>
+<% end %>
 
 <% @posts.each do |post| %>
   <div class="post-card">
@@ -9,13 +11,45 @@
       <img src="<%= post.album.cover_url %>" class="post-img">
     <% end %>
 
-    <h3>
-      <%= post.album&.name %> - <%= post.album&.artist %>
-    </h3>
+    <h3><%= post.album&.name %> - <%= post.album&.artist %></h3>
 
     <p><%= post.content %></p>
 
+    <p>
+      Reactions:
+      <% post.reactions&.each do |emoji, count| %>
+        <%= emoji %> <%= count %>
+      <% end %>
+    </p>
+
+    <% if user_signed_in? %>
+      <%= link_to "👍",
+            react_post_path(post, emoji: "👍"),
+            data: { turbo_method: :post },
+            class: "btn" %>
+
+<%= link_to "❤️",
+            react_post_path(post, emoji: "❤️"),
+            data: { turbo_method: :post },
+            class: "btn" %>
+
+<%= link_to "😂",
+            react_post_path(post, emoji: "😂"),
+            data: { turbo_method: :post },
+            class: "btn" %>
+    <% end %>
+
     <%= link_to "View", post_path(post), class: "btn" %>
+
+    <% if user_signed_in? && post.user == current_user %>
+      <%= link_to "Delete",
+                  post_path(post),
+                  data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Delete this post?"
+                  },
+                  class: "btn" %>
+    <% end %>
 
   </div>
 <% end %>

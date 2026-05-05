@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_05_073829) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_05_081120) do
   create_table "albums", force: :cascade do |t|
     t.string "artist"
     t.string "cover_url"
@@ -22,6 +22,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_05_073829) do
   create_table "comments", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
+    t.string "gif_url"
     t.integer "post_id", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
@@ -34,6 +35,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_05_073829) do
     t.text "content"
     t.datetime "created_at", null: false
     t.string "image_url"
+    t.text "reactions"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["album_id"], name: "index_posts_on_album_id"

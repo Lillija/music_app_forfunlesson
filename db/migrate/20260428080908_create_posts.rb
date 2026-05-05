@@ -4,6 +4,7 @@ class CreatePosts < ActiveRecord::Migration[8.1]
       t.references :user, null: false, foreign_key: true
       t.references :album, null: false, foreign_key: true
       t.text :content
+      t.text :reactions # this will store emoji counts as a serialized hash
 
       t.timestamps
     end
