@@ -13,19 +13,28 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
-  def create
-    @post = current_user.posts.new(post_params)
+def create
+  album = Album.find_or_initialize_by(name: params[:post][:album_name])
+  album.artist = params[:post][:artist]
+  album.cover_url = params[:post][:image_url]
 
-    if @post.save
-      redirect_to @post
-    else
-      render :new
-    end
+  unless album.save
+    render :new and return
   end
+
+  @post = current_user.posts.new(post_params)
+  @post.album = album
+
+  if @post.save
+    redirect_to @post
+  else
+    render :new
+  end
+end
 
   private
 
- def post_params
-  params.require(:post).permit(:title, :content) # remove :album_name
+def post_params
+  params.require(:post).permit(:content)
 end
 end

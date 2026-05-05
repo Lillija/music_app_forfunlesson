@@ -23,7 +23,20 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="app-body">
+
+  <nav class="navbar">
+    <div class="logo">🎵 MusicApp</div>
+
+    <div class="nav-links">
+      <%= link_to "Feed", posts_path %>
+      <%= link_to "New Post", new_post_path %>
+    </div>
+  </nav>
+
+  <main class="container">
     <%= yield %>
-  </body>
+  </main>
+
+</body>
 </html>

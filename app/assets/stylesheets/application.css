@@ -1,10 +1,75 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+/* ===== Global Theme ===== */
+body.app-body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background: #0d0d0d;
+  color: #f5f5f5;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  background: #120000;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid darkred;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: darkred;
+}
+
+.nav-links a {
+  color: white;
+  margin-left: 15px;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+.nav-links a:hover {
+  background: darkred;
+}
+
+/* ===== Main Container ===== */
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* ===== Post Cards ===== */
+.post-card {
+  background: #1a1a1a;
+  border: 1px solid #330000;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 10px;
+}
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-block;
+  padding: 8px 12px;
+  background: darkred;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background: #a00000;
+}
+
+/* ===== Images ===== */
+.post-img {
+  width: 100%;
+  max-width: 250px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}

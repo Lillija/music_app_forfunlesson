@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_05_072139) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_05_073829) do
   create_table "albums", force: :cascade do |t|
     t.string "artist"
     t.string "cover_url"
     t.datetime "created_at", null: false
-    t.string "title"
+    t.string "name"
     t.datetime "updated_at", null: false
   end
 
@@ -31,9 +31,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_05_072139) do
 
   create_table "posts", force: :cascade do |t|
     t.integer "album_id", null: false
-    t.string "album_name"
     t.text "content"
     t.datetime "created_at", null: false
+    t.string "image_url"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["album_id"], name: "index_posts_on_album_id"
