@@ -1,4 +1,9 @@
-class Comment < ApplicationRecord
-  belongs_to :post
+class Comment
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :body, type: String
+
   belongs_to :user
+  belongs_to :post
 end

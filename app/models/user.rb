@@ -1,8 +1,10 @@
-class User < ApplicationRecord
-  has_many :posts, dependent: :destroy
-  has_many :comments, dependent: :destroy
+class User
+  include Mongoid::Document
+  include Mongoid::Timestamps
 
-  # If using Devise:
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  field :email, type: String
+  field :password, type: String
+
+  has_many :posts
+  has_many :comments
 end

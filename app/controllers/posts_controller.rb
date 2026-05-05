@@ -14,21 +14,15 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
-  def create
-    album = Album.find_or_create_by(name: params[:post][:album_name]) do |a|
-      a.artist = params[:post][:artist]
-      a.cover_url = params[:post][:image_url]
-    end
+  ddef create
+  @post = current_user.posts.build(post_params)
 
-    @post = current_user.posts.new(post_params)
-    @post.album = album
-
-    if @post.save
-      redirect_to @post, notice: "Post created!"
-    else
-      render :new
-    end
+  if @post.save
+    redirect_to @post
+  else
+    render :new
   end
+end
 
   def edit; end
 

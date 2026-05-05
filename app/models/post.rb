@@ -1,13 +1,19 @@
-class Post < ApplicationRecord
-  belongs_to :user
-  belongs_to :album
-  has_many :comments, dependent: :destroy
+class Post
+  include Mongoid::Document
+  include Mongoid::Timestamps
 
-  serialize :reactions, coder: JSON
+  field :content, type: String
+  field :image_url, type: String
+  field :reactions, type: Hash, default: {}
 
+  belongs_to :user, inverse_of: :posts
+  has_many :comments, dependent: :destroy, inverse_of: :post
+
+  # Add or increment reaction emoji
   def add_reaction(emoji)
     self.reactions ||= {}
-    self.reactions[emoji] = self.reactions.fetch(emoji, 0) + 1
-    save
+    self.reactions[emoji] ||= 0
+    self.reactions[emoji] += 1
+    save!
   end
 end

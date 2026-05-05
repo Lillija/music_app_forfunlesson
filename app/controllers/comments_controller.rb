@@ -3,14 +3,11 @@ class CommentsController < ApplicationController
   before_action :set_post
 
   def create
-    @comment = @post.comments.build(comment_params)
-    @comment.user = current_user
-
-    if @comment.save
-      redirect_to @post
-    else
-      redirect_to @post, alert: "Failed to add comment."
-    end
+  @comment = @post.comments.build(comment_params)
+  @comment.user = current_user
+  @comment.save
+  redirect_to @post
+end
   end
 
   def destroy
