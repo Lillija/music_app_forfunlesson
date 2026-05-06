@@ -1,52 +1,39 @@
 body.app-body {
   margin: 0;
-  font-family: "Arial", sans-serif;
+  font-family: Arial, sans-serif;
   background: #0d0d0d;
   color: #f5f5f5;
 }
 
+/* NAVBAR */
 .navbar {
   background: #120000;
   padding: 15px 25px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   border-bottom: 2px solid darkred;
 }
 
 .logo {
-  font-size: 20px;
-  font-weight: bold;
   color: darkred;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  font-weight: bold;
 }
 
 .nav-links a {
   color: white;
+  margin-left: 10px;
   text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: 0.2s;
-  font-weight: 500;
 }
 
-.nav-links a:hover {
-  background: darkred;
-  color: white;
-}
-
+/* CONTAINER */
 .container {
-  max-width: 800px;
+  max-width: 700px;
   margin: auto;
   padding: 20px;
 }
 
-.post-card, .comment-card {
+/* POSTS */
+.post-card {
   background: #1a1a1a;
   border: 1px solid #330000;
   padding: 15px;
@@ -54,25 +41,57 @@ body.app-body {
   border-radius: 10px;
 }
 
-.post-img {
-  width: 100%;
-  max-width: 250px;
-  border-radius: 10px;
-  margin-bottom: 10px;
+.artist {
+  color: darkred;
 }
 
-.btn {
-  display: inline-block;
-  padding: 8px 12px;
-  background: darkred;
-  color: white;
+.music-link {
+  color: #ff4d4d;
   text-decoration: none;
-  border-radius: 6px;
+}
+
+.caption {
   margin-top: 10px;
 }
 
-.btn:hover {
-  background: #a00000;
+/* BUTTONS */
+.btn {
+  display: inline-block;
+  padding: 6px 10px;
+  background: darkred;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+/* FORM */
+.form-card {
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  background: #0d0d0d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+.post-img {
+  width: 100%;
+  max-height: 300px;   /* prevents huge images */
+  object-fit: contain; /* shows full image */
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: #111;    /* fills empty space nicely */
 }
 
 .comments-section {
@@ -81,19 +100,8 @@ body.app-body {
 
 .comment-card {
   background: #222;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.reaction-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-.reaction-buttons span {
-  margin-right: 10px;
-  background: #2a0000;
-  padding: 5px 10px;
+  padding: 8px;
   border-radius: 6px;
+  margin-bottom: 5px;
+  font-size: 14px;
 }

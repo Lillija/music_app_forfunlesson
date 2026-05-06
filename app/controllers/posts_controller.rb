@@ -1,49 +1,44 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-    @posts = Post.all.order(created_at: :desc)
-    @post = Post.new
+    @posts = Post.all.desc(:created_at)
   end
 
   def show
     @post = Post.find(params[:id])
   end
 
-  def create
-    @post = Post.new(post_params)
-    @post.user = current_user
+  def new
+    @post = Post.new
+  end
 
-    if @post.save
-      redirect_to root_path
-    else
-      render :index
-    end
+  def create
+  @post = Post.new(post_params)
+  @post.user = current_user
+
+  if @post.save
+    redirect_to posts_path
+  else
+    render :new
+  end
+end
+
+  def react
+    post = Post.find(params[:id])
+    post.react!(params[:emoji])
+    redirect_to posts_path
   end
 
   def destroy
     post = Post.find(params[:id])
     post.destroy if post.user == current_user
-    redirect_to root_path
-  end
-
-  # ⭐ REACTIONS SYSTEM
-  def react
-    post = Post.find(params[:id])
-    emoji = params[:emoji]
-
-    post.reactions ||= {}
-    post.reactions[emoji] ||= 0
-    post.reactions[emoji] += 1
-
-    post.save!
-
-    redirect_to root_path
+    redirect_to posts_path
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:content, :album_name, :artist)
+    params.require(:post).permit(:title, :artist, :image_url, :content)
   end
 end

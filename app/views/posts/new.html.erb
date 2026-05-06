@@ -1,25 +1,29 @@
-<h1>New Post</h1>
+<h1 class="page-title">🎵 Share a Track</h1>
 
-<%= form_with model: @post do |f| %>
-  <p>
-    <%= f.label :album_name %><br>
-    <%= f.text_field :album_name %>
-  </p>
+<div class="form-card">
+  <%= form_with model: @post do |f| %>
 
-  <p>
-    <%= f.label :artist %><br>
-    <%= f.text_field :artist %>
-  </p>
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+    </div>
 
-  <p>
-    <%= f.label :image_url, "Album Cover URL" %><br>
-    <%= f.text_field :image_url %>
-  </p>
+    <div class="form-group">
+      <%= f.label :artist %>
+      <%= f.text_field :artist %>
+    </div>
 
-  <p>
-    <%= f.label :content %><br>
-    <%= f.text_area :content %>
-  </p>
+    <div class="form-group">
+      <%= f.label :image_url, "Album Cover URL" %>
+      <%= f.text_field :image_url, placeholder: "Paste image link here" %>
+    </div>
 
-  <%= f.submit "Post 🎵", class: "btn" %>
-<% end %>
+    <div class="form-group">
+      <%= f.label :content %>
+      <%= f.text_area :content %>
+    </div>
+
+    <%= f.submit "Post 🎶", class: "btn primary-btn" %>
+
+  <% end %>
+</div>

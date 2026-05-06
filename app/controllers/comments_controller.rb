@@ -1,32 +1,19 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_post
-
   def create
-  @comment = @post.comments.build(comment_params)
-  @comment.user = current_user
-  @comment.save
-  redirect_to @post
-end
-  end
+    post = Post.find(params[:post_id])
+    comment = post.comments.new(comment_params)
+    comment.user = current_user
 
-  def destroy
-    @comment = @post.comments.find(params[:id])
-
-    if @comment.user == current_user
-      @comment.destroy
+    if comment.save
+      redirect_to posts_path
+    else
+      redirect_to posts_path
     end
-
-    redirect_to @post
   end
 
   private
 
-  def set_post
-    @post = Post.find(params[:post_id])
-  end
-
   def comment_params
-    params.require(:comment).permit(:body)
+    params.require(:comment).permit(:content)
   end
 end
