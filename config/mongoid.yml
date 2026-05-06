@@ -1,0 +1,6 @@
+development:
+  clients:
+    default:
+      database: music_app_development
+      hosts:
+        - localhost:27017

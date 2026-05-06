@@ -1,60 +1,49 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [ :show, :edit, :update, :destroy, :react ]
-  before_action :authenticate_user!, except: [ :index, :show ]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @posts = Post.includes(:album, :user, :comments).order(created_at: :desc)
-  end
-
-  def show
-    @comment = Comment.new
-  end
-
-  def new
+    @posts = Post.all.order(created_at: :desc)
     @post = Post.new
   end
 
-  ddef create
-  @post = current_user.posts.build(post_params)
-
-  if @post.save
-    redirect_to @post
-  else
-    render :new
+  def show
+    @post = Post.find(params[:id])
   end
-end
 
-  def edit; end
+  def create
+    @post = Post.new(post_params)
+    @post.user = current_user
 
-  def update
-    if @post.update(post_params)
-      redirect_to @post, notice: "Post updated!"
+    if @post.save
+      redirect_to root_path
     else
-      render :edit
+      render :index
     end
   end
 
   def destroy
-    if @post.user == current_user
-      @post.destroy
-      redirect_to posts_path, notice: "Post deleted!"
-    else
-      redirect_to posts_path, alert: "Not allowed."
-    end
+    post = Post.find(params[:id])
+    post.destroy if post.user == current_user
+    redirect_to root_path
   end
 
+  # ⭐ REACTIONS SYSTEM
   def react
-    @post.add_reaction(params[:emoji])
-    redirect_back fallback_location: @post
+    post = Post.find(params[:id])
+    emoji = params[:emoji]
+
+    post.reactions ||= {}
+    post.reactions[emoji] ||= 0
+    post.reactions[emoji] += 1
+
+    post.save!
+
+    redirect_to root_path
   end
 
   private
 
-  def set_post
-    @post = Post.find(params[:id])
-  end
-
   def post_params
-    params.require(:post).permit(:content)
+    params.require(:post).permit(:content, :album_name, :artist)
   end
 end

@@ -9,24 +9,20 @@ gem "turbo-rails"
 gem "stimulus-rails"
 gem "jbuilder"
 
-# MongoDB (NoSQL)
+# Auth
+gem "devise"
+
+# MongoDB
 gem "mongoid", "~> 8.1"
 
-# Devise (Mongoid-compatible version)
-
-# Redis (optional feature, safe to keep)
 gem "redis", "~> 5.4"
-
 gem "image_processing"
 gem "bootsnap", require: false
-
-gem "tzinfo-data", platforms: %i[windows jruby]
 
 group :development, :test do
   gem "debug"
   gem "bundler-audit", require: false
   gem "brakeman", require: false
-  gem "rubocop-rails-omakase", require: false
 end
 
 group :development do

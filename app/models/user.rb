@@ -2,9 +2,13 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :email, type: String
-  field :password, type: String
+  # Devise modules
+  devise :database_authenticatable,
+         :registerable,
+         :recoverable,
+         :rememberable,
+         :validatable
 
-  has_many :posts
-  has_many :comments
+  field :email, type: String
+  field :encrypted_password, type: String
 end

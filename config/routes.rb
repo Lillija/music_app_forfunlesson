@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
-  resources :posts do
-    member do
-      post :react
-    end
-
-    resources :comments, only: [:create, :destroy]
-  end
+  devise_for :users
 
   root "posts#index"
+  resources :posts do
+    post "react", on: :member
+  end
 end

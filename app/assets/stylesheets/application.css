@@ -91,3 +91,9 @@ body.app-body {
   gap: 10px;
   margin-top: 10px;
 }
+.reaction-buttons span {
+  margin-right: 10px;
+  background: #2a0000;
+  padding: 5px 10px;
+  border-radius: 6px;
+}
