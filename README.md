@@ -95,7 +95,7 @@ http://localhost:3000
 
 ---
 
-## AuthorS
+## Authors
 
 Līga + ChatGPT
 
