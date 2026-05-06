@@ -9,7 +9,7 @@ class Post
   field :reactions, type: Hash, default: {}
 
   belongs_to :user
-  has_many :comments, dependent: :destroy   # 👈 IMPORTANT
+  has_many :comments, dependent: :destroy
 
   def react!(emoji)
     self.inc("reactions.#{emoji}" => 1)

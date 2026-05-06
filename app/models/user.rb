@@ -5,12 +5,11 @@ class User
   devise :database_authenticatable,
          :registerable,
          :recoverable,
-         :rememberable,
          :validatable
 
   field :email, type: String
   field :encrypted_password, type: String
 
-  has_many :posts
-  has_many :comments   # 👈 IMPORTANT
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
 end

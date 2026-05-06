@@ -87,11 +87,11 @@ body.app-body {
 }
 .post-img {
   width: 100%;
-  max-height: 300px;   /* prevents huge images */
-  object-fit: contain; /* shows full image */
+  max-width: 300px;
+  height: auto;
+  object-fit: contain;
   border-radius: 10px;
   margin-bottom: 10px;
-  background: #111;    /* fills empty space nicely */
 }
 
 .comments-section {

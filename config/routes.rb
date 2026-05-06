@@ -5,6 +5,6 @@ Rails.application.routes.draw do
 
   resources :posts do
     post :react, on: :member
-    resources :comments, only: [:create] 
+    resources :comments, only: [:create, :destroy]
   end
 end

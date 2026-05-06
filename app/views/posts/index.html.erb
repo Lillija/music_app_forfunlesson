@@ -1,60 +1,76 @@
-<h1>🎵 Music Feed</h1>
+<h1>Music Feed</h1>
 
 <% if user_signed_in? %>
   <%= link_to "New Post", new_post_path, class: "btn" %>
 <% end %>
 
-<% @posts.each do |post| %>   <!-- 👈 THIS IS CRITICAL -->
-
+<% @posts.each do |post| %>
   <div class="post-card">
 
     <div class="post-header">
       <strong><%= post.user.email %></strong>
     </div>
 
+    <h2><%= post.title %></h2>
+    <p><em><%= post.artist %></em></p>
+
     <% if post.image_url.present? %>
       <img src="<%= post.image_url %>" class="post-img">
     <% end %>
 
-    <h3><%= post.title %></h3>
-    <p class="artist"><%= post.artist %></p>
-    <p class="caption"><%= post.content %></p>
+    <p><%= post.content %></p>
 
-    <!-- ❤️ reactions -->
     <p>
+      Reactions:
       <% post.reactions.each do |emoji, count| %>
         <%= emoji %> <%= count %>
       <% end %>
     </p>
 
     <% if user_signed_in? %>
-      <% ["👍", "❤️", "😂"].each do |emoji| %>
-        <%= link_to emoji,
-              react_post_path(post, emoji: emoji),
-              data: { turbo_method: :post },
-              class: "btn" %>
-      <% end %>
+      <div class="reaction-buttons">
+        <% ["👍", "❤️", "😂"].each do |emoji| %>
+          <%= link_to emoji,
+                react_post_path(post, emoji: emoji),
+                data: { turbo_method: :post },
+                class: "btn" %>
+        <% end %>
+      </div>
     <% end %>
 
-    <!-- 💬 comments -->
+    <% if user_signed_in? && post.user == current_user %>
+      <%= link_to "Delete",
+            post_path(post),
+            data: { turbo_method: :delete, turbo_confirm: "Delete?" },
+            class: "btn" %>
+    <% end %>
+
+    <!-- COMMENTS -->
     <div class="comments-section">
+      <h3>Comments</h3>
 
       <% post.comments.each do |comment| %>
         <div class="comment-card">
-          <strong><%= comment.user.email %>:</strong>
-          <%= comment.content %>
+          <strong><%= comment.user.email %></strong>
+          <p><%= comment.content %></p>
+
+          <% if user_signed_in? && comment.user == current_user %>
+            <%= link_to "Delete",
+                  post_comment_path(post, comment),
+                  data: { turbo_method: :delete },
+                  class: "btn" %>
+          <% end %>
         </div>
       <% end %>
 
       <% if user_signed_in? %>
-        <%= form_with model: [post, Comment.new], local: true do |f| %>
-          <%= f.text_field :content, placeholder: "Add a comment..." %>
-          <%= f.submit "Post", class: "btn" %>
+        <%= form_with model: [post, Comment.new] do |f| %>
+          <%= f.text_area :content, placeholder: "Write a comment..." %><br>
+          <%= f.submit "Comment", class: "btn" %>
         <% end %>
       <% end %>
 
     </div>
 
   </div>
-
-<% end %>   <!-- 👈 ALSO CRITICAL -->
+<% end %>
