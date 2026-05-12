@@ -13,7 +13,7 @@ gem "jbuilder"
 gem "devise"
 
 # MongoDB
-gem "mongoid", "~> 8.1"
+gem "mongoid", "~> 9.1"
 
 gem "redis", "~> 5.4"
 gem "image_processing"
